@@ -1,0 +1,22 @@
+OpenClick – Feedback da pré-avaliação da entrega do dia 21.
+
+EQUIPE PIARERS
+Clean Code:
+1.	Há imports não utilizados em algumas classes.
+2.	Fechar as instancias/interfaces de comunicação com o banco após a utilização (ex: resultset, statement).
+3.	Aprimorar a utilização de booleans para deixar o código mais limpo (ex: ao invés de “if (x == true) utilizar if (x)”).
+4.	Remover instancias desnecessárias, exemplo: 
+
+É instanciada um novo objeto Idea e é sobrescrito logo na sequencia, o que resulta em uma utilizaçao de memória descenessária.
+
+5.	Utilizar um gerenciador de dependências (ex: maven, gradle).
+6.	Utilizar um software de análise estática de código (ex: sonarlint).
+UI/UX:
+1.	Tela de login: habilitar a tecla “Enter” para envio de formulário.
+2.	Nas tabelas, substituir a legenda pelos nomes completos.
+3.	Tela de cadastro: Correção de campos obrigatórios;
+4.	Alerta de sucesso fora do padrão, adicionar estilo.
+5.	Melhorar as descrições dos campos para deixar mais intuitivo.
+6.	Adicionar mais funções ao dashboard, tais como: campo pesquisa, botão de inserir uma nova ideia.
+7.	Melhorar a responsividade.
+
