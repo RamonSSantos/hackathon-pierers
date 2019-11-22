@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>PIAR</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<servlet-class>br.com.servlet.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoginServlet</servlet-name>
+  	<url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  
+  	<servlet-name>NewPassword</servlet-name>
+  	<servlet-class>br.com.servlet.NewPassword</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>NewPassword</servlet-name>
+  	<url-pattern>/NewPassword</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+    <init-param>
+      <param-name>com.sun.jersey.config.property.packages</param-name>
+      <!-- url REST - ../../ = resources/folder/ -->
+      <param-value>br.com.rest</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Jersey REST Service</servlet-name>
+    <url-pattern>/rest/*</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+  	<display-name>FilterConnection</display-name>
+  	<filter-name>FilterConnection</filter-name>
+  	<filter-class>br.com.session.FilterConnection</filter-class>
+  </filter>
+  <filter-mapping>
+  	<filter-name>FilterConnection</filter-name>
+  	<url-pattern>/resources/*</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+  	<servlet-name>DestroySession</servlet-name>
+  	<servlet-class>br.com.session.DestroySession</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DestroySession</servlet-name>
+  	<url-pattern>/DestroySession</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>LoggedUsername</servlet-name>
+  	<servlet-class>br.com.servlet.LoggedUsername</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>LoggedUsername</servlet-name>
+  	<url-pattern>/LoggedUsername</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ListCompanyUnits</servlet-name>
+  	<servlet-class>br.com.servlet.ListCompanyUnits</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ListCompanyUnits</servlet-name>
+  	<url-pattern>/getListCompanyUnits</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ListDepartments</servlet-name>
+  	<servlet-class>br.com.servlet.ListDepartments</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ListDepartments</servlet-name>
+  	<url-pattern>/getListDepartments</url-pattern>
+  </servlet-mapping>
+  
+</web-app>

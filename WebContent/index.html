@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PIAR | Login</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="img/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/fontawesome/all.css" />
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+    </head>
+    <body id="imageBackground">
+        <div class="container">
+            <div class="row">
+                <div class="mx-auto div-width">
+                    <div class="col-12 my-5 p-4 div-login">
+                        <img src="img/logo.png" alt="Logo PIAR" class="img-fluid mx-auto d-block pb-3" />
+                        <form id="form_login" method="post" class="form-control-plaintext">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-at"></i></span>
+                                    </div>
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Digite o seu e-mail" required autofocus />
+                                </div>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                                    </div>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="Digite a sua senha" required />
+                                </div>
+                            </div>
+                            <input type="button" id="btnLogin" name="btnLogin" class="btn btn-info btn-block mb-2" value="Entrar" onclick="loginValidation()" />
+                            <p class="text-basic">Não tem uma conta? 
+                                <a href="#" class="text-dark text-link">Crie uma!</a>
+                            </p>
+                            <a href="#" class="text-secondary text-link">Esqueceu sua senha?</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                <div id="login_validation" class="toast" style="position: fixed; top: 2rem; right: 2rem;" data-delay=2000>
+                    <div class="toast-header">
+                        <strong class="mr-auto">Login</strong>
+                        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="toast-body">
+                        <div id="text-toast-login"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="js/jquery/jquery.min.js"></script>
+    <script src="js/popper.js/popper.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/fontawesome/all.js"></script>
+    <script src="js/login.js"></script>
+</html>

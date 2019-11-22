@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700|PT+Sans|Public+Sans:400,600&display=swap');
+    /*font-family: 'Lato', sans-serif;*/
+    /*font-family: 'PT Sans', sans-serif;*/
+    /*font-family: 'Open Sans', sans-serif;*/
+    /*font-family: 'Public Sans', sans-serif;*/
+
+.text-basic {
+    font-weight: 400;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.text-link {
+    font-weight: 600;
+    font-family: 'PT Sans', sans-serif;
+}
+
+#imageBackground {
+    background-image: url("../img/background.jpg");
+    overflow-y: hidden;
+}
+
+.div-width {
+    width: 33%;
+}
+
+.div-login {
+    background-color: rgb(255, 255, 255, .6);
+	box-shadow: 0 0 1rem #000;
+    -webkit-box-shadow: 0 0 1rem #000;
+    -moz-box-shadow: 0 0 1rem #000;
+}

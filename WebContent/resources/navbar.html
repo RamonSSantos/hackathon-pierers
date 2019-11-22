@@ -1,0 +1,53 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-info fixed-top pr-0">
+    <a href="../home/home.html" class="nabvar-brand"><img src="../../img/logo-navbar.png" alt="Logo PIAR" class="ml-1" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Alterna navegação">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse ml-4" id="navbar">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link text-navbar" href="../home/home.html">Home <span class="sr-only">(Página atual)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-navbar" href="../ideas/myideas.html">Minhas ideias</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-navbar" href="../ranking/ranking.html">Ranking</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-navbar" href="../rewards/myrewards.html">Meus Prêmios</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="user-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-info" aria-labelledby="user-profile">
+                    <a class="dropdown-item">
+                        <!-- get LoggedUsername from navbar.js -->
+                        <div id="infoUser"></div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item cursor-pointer text-label" href="../profile/myaccount.html">Minha conta</a>
+                    <a class="dropdown-item cursor-pointer text-label" onclick="logout()">Sair</a>
+                    <form name="Destroy_Session" action="../../DestroySession" method="POST"></form>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 80px;">
+    <div id="logout_validation" class="toast" style="position: fixed; top: 5rem; right: 2rem;" data-delay=2000>
+        <div class="toast-header">
+            <strong class="mr-auto">Logout</strong>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            <div id="text-toast-logout"></div>
+        </div>
+    </div>
+</div>

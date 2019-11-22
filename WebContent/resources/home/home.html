@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Home | PIAR</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="../../img/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/fontawesome/all.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="../css/index.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div id="include_navbar"></div>
+            <div class="row">
+                <div class="col-12">
+                    <h2 class="title border-title pl-2 mb-0 mt-2">Home</h2>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-4">
+                    <select name="statusIdea" id="statusIdea" class="form-control pl-2">
+                        <option value="0">Selecione o status</option>
+                        <option value="1">Aguardando aprovação</option>
+                        <option value="2">Aprovada</option>
+                        <option value="3">Reprovada</option>
+                        <option value="4">Executada</option>
+                    </select>
+                    <input type="hidden" name="idStatusIdea" id="idStatusIdea" />
+                </div>
+            </div>
+            <div id="msg" style="display: none"></div>
+            <div class="container-fluid px-0">
+                <div id="ideaList"></div>
+            </div>
+            <div id="showIdea" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">*</a>
+                            <h5 class="title">Consulta de ideia</h5>
+                        </div>
+                        <form class="form-control-plaintext" role="form">
+                            <div class="modal-body">
+                                <fieldset class="form-group mb-1">
+                                    <legend class="subtitle">Informações da ideia:</legend>
+                                    <div class="form-row m-2">
+                                        <div class="col-9">
+                                            <label for="titleViewIdea" class="text-label">Título:</label>
+                                            <input type="text" name="titleViewIdea" id="titleViewIdea" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="registerDateViewIdea" class="text-label">Data:</label>
+                                            <input type="text" name="registerDateViewIdea" id="registerDateViewIdea" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-12">
+                                            <label for="descriptionViewIdea" class="text-label">Descrição:</label>
+                                            <textarea name="descriptionViewIdea" id="descriptionViewIdea" class="form-control" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-12">
+                                            <label for="expectedResultsViewIdea" class="text-label">Resultados esperados:</label>
+                                            <textarea name="expectedResultsViewIdea" id="expectedResultsViewIdea" class="form-control" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-5">
+                                            <label for="authorViewIdea" class="text-label">Autor:</label>
+                                            <input type="text" name="authorViewIdea" id="authorViewIdea" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-4">
+                                            <label for="companyUnitViewIdea" class="text-label">Unidade:</label>
+                                            <input type="text" name="companyUnitViewIdea" id="companyUnitViewIdea" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-3">
+                                            <label for="departmentviewIdea" class="text-label">Departamento:</label>
+                                            <input type="text" name="departmentviewIdea" id="departmentviewIdea" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <fieldset class="form-group mb-1">
+                                    <legend class="subtitle">Status:</legend>
+                                    <div class="form-row m-2">
+                                        <div class="col-5">
+                                            <label for="statusViewIdea" class="text-label">Status:</label>
+                                            <input type="text" name="statusViewIdea" id="statusViewIdea" class="form-control" disabled />
+                                        </div>
+                                        <div class="col-7" id="nameApproverIdea">
+                                            <label for="nameApproverViewIdea" class="text-label">Aprovador:</label>
+                                            <input type="text" name="nameApproverViewIdea" id="nameApproverViewIdea" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-12" id="observationApprovalIdea">
+                                            <label for="observationApprovalViewIdea" class="text-label">Observação:</label>
+                                            <input type="text" name="observationApprovalViewIdea" id="observationApprovalViewIdea" class="form-control" disabled />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+                            </form>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="include_footer"></div>
+    </body>
+    <script src="../../js/jquery/jquery.min.js"></script>
+    <script src="../../js/jquery/jquery-ui.js"></script>
+    <script src="../../js/popper.js/popper.js"></script>
+    <script src="../../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../js/fontawesome/all.js"></script>
+    <script src="../../js/ajax.js"></script>
+    <script src="../js/modelPages.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="js/home.js"></script>
+</html>

@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700|Open+Sans:400,700|PT+Sans|Public+Sans:400,600&display=swap');
+    /*font-family: 'Lato', sans-serif;*/
+    /*font-family: 'PT Sans', sans-serif;*/
+    /*font-family: 'Open Sans', sans-serif;*/
+    /*font-family: 'Public Sans', sans-serif;*/
+
+.container {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.title {
+    font-weight: 600;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.subtitle {
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+}
+
+.text-label {
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+}
+
+.text-navbar {
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.1rem;
+}
+
+.text-title {
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.2rem;
+}
+
+.text-small {
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.8rem;
+    margin-bottom: 0;
+}
+
+.border-title {
+	border-left: 0.30rem solid #17a2b8;
+}
+
+.modal-dialog {
+	min-width: 40%;
+}
+
+caption {
+    caption-side: top !important;
+}

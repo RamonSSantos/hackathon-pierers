@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Meus Prêmios | PIAR</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="../../img/favicon.ico" />
+        <link rel="stylesheet" type="text/css" href="../../css/bootstrap/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/fontawesome/all.css" />
+        <link rel="stylesheet" type="text/css" href="../../css/jquery-ui.css" />
+        <link rel="stylesheet" type="text/css" href="css/rewards.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div id="include_navbar"></div>
+            <div class="row">
+                <div class="col-4">
+                    <h2 class="title border-title pl-2 mb-0 mt-2">Meus prêmios</h2>
+                </div>
+                <div class="col-3 offset-5">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr class="text-center">
+                                    <th colspan="2">Legenda</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PA:</td>
+                                    <td>Pontos atuais</td>
+                                </tr>
+                                <tr>
+                                    <td>PT:</td>
+                                    <td>Pontos totais</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="msg" style="display: none"></div>
+            <div class="container-fluid px-0">
+                <div id="thead_Table"></div>
+                <div id="myScoreList"></div>
+                <input type="hidden" name="currentScoreUser" id="currentScoreUser" />
+
+                <div id="thead_TableRewards"></div>
+                <div id="myRewardsList"></div>
+            </div>
+        </div>
+        <div id="include_footer"></div>
+    </body>
+    <script src="../../js/jquery/jquery.min.js"></script>
+    <script src="../../js/jquery/jquery-ui.js"></script>
+    <script src="../../js/popper.js/popper.js"></script>
+    <script src="../../js/bootstrap/bootstrap.min.js"></script>
+    <script src="../../js/fontawesome/all.js"></script>
+    <script src="../../js/ajax.js"></script>
+    <script src="../js/modelPages.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="../js/paginathing.js"></script>
+    <script src="js/rewards.js"></script>
+</html>

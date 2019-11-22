@@ -1,0 +1,7 @@
+1- Abra a pasta 'database';
+2- Execute o arquivo 'piardb.sql';
+3- Execute o arquivo 'scripts.sql';
+4- Acesse a tela de login do projeto com as credenciais abaixo:
+
+E-mail: contato.piarers@gmail.com
+Senha: adm.system
