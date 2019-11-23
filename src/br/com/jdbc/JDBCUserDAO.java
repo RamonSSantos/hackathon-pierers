@@ -19,18 +19,21 @@ public class JDBCUserDAO implements UserDAO
 		this.connection = connection;
 	}
 	
-	public boolean loginValidation(User user)
+	public boolean loginValidation(User user) throws SQLException
 	{
 		String command = "SELECT email, password FROM users WHERE email = '" + user.getEmail() + "'";
-		User userInfo = new User();
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.first())
 			{
+				User userInfo = new User();
+				
 				userInfo.setEmail(rs.getString("email"));
 				userInfo.setPassword(rs.getString("password")); //Senha do banco de dados transformada em MD5
 				
@@ -50,19 +53,25 @@ public class JDBCUserDAO implements UserDAO
 		{
 			e.printStackTrace();
 			return false;
+		} finally
+		{
+			stmt.close();
+			rs.close();
 		}
 		return false; //IMPORTANTE
 	}
 	
-	public User loggedUsername(String email)
+	public User loggedUsername(String email) throws SQLException
 	{
 		String command = "SELECT iduser, fullname FROM users WHERE email = '" + email + "'";
-		User user = null;
 		
+		User user = null;
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
@@ -74,11 +83,15 @@ public class JDBCUserDAO implements UserDAO
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return user;
 	}
 
-	public List<User> searchUserByName(String searchUser)
+	public List<User> searchUserByName(String searchUser) throws SQLException
 	{
 		String command = "SELECT u.iduser, u.fullname, u.current_score, u.total_score, c.trade_name, d.description FROM users u ";
 		command += "INNER JOIN departments d ON "; 
@@ -91,19 +104,20 @@ public class JDBCUserDAO implements UserDAO
 			command += "WHERE u.fullname LIKE '" + searchUser + "%'";
 		}
 		
-		command += " ORDER BY u.current_score, u.total_score";
+		command += " ORDER BY u.current_score DESC, u.total_score DESC";
 		
 		List<User> userList = new ArrayList<User>();
-		User user = null;
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
-				user = new User();
+				User user = new User();
 				
 				user.setId(rs.getInt("u.iduser"));
 				user.setFullname(rs.getString("u.fullname"));
@@ -117,11 +131,15 @@ public class JDBCUserDAO implements UserDAO
 		} catch(Exception e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return userList;
 	}
 
-	public User searchUserById(int idUser)
+	public User searchUserById(int idUser) throws SQLException
 	{
 		String command = "SELECT u.iduser, u.fullname, u.current_score, u.total_score, c.trade_name, d.description FROM users u ";
 		command += "INNER JOIN departments d ON "; 
@@ -131,11 +149,12 @@ public class JDBCUserDAO implements UserDAO
 		command += "WHERE u.iduser = " + idUser;
 		
 		User user = null;
-		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
@@ -151,6 +170,10 @@ public class JDBCUserDAO implements UserDAO
 		} catch(Exception e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return user;
 	}

@@ -25,12 +25,11 @@ public class JDBCIdeaDAO implements IdeaDAO
 		this.connection = connection;
 	}
 
-	public boolean addIdea(Idea idea)
+	public boolean addIdea(Idea idea) throws SQLException
 	{
 		String command = "INSERT INTO ideas " + "(status, register_date, title, description, user_identification, expected_results, likes, comments, idapprover, iddepartment, idauthor) " + "VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		
-		PreparedStatement p;
-		
+		PreparedStatement p = null;
 		try
 		{
 			p = this.connection.prepareStatement(command);
@@ -49,17 +48,19 @@ public class JDBCIdeaDAO implements IdeaDAO
 			p.setInt(9, 0);
 			p.setInt(10, idea.getIdDepartment());
 			p.setInt(11, idea.getIdAuthor());
-			
 			p.execute();
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
 			return false;
+		}finally
+		{
+			p.close();
 		}
 		return true;
 	}
 
-	public List<Idea> searchIdeaByUser(int idUser, int status)
+	public List<Idea> searchIdeaByUser(int idUser, int status) throws SQLException
 	{
 		String command = "SELECT ididea, status, title, user_identification, likes, comments FROM ideas ";
 		command += "WHERE idauthor = " + idUser;
@@ -69,19 +70,20 @@ public class JDBCIdeaDAO implements IdeaDAO
 			command += " AND status = " + status;
 		}
 		
-		command += " ORDER BY status, ididea";
+		command += " ORDER BY status, ididea DESC";
 		
 		List<Idea> ideaList = new ArrayList<Idea>();
-		Idea idea = null;
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
-				idea = new Idea();
+				Idea idea = new Idea();
 				
 				idea.setId(rs.getInt("ididea"));
 				idea.setStatus(rs.getInt("status"));
@@ -95,11 +97,15 @@ public class JDBCIdeaDAO implements IdeaDAO
 		} catch(Exception e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return ideaList;
 	}
 	
-	public Idea searchIdeaById(int idIdea, int statusIdea)
+	public Idea searchIdeaById(int idIdea, int statusIdea) throws SQLException
 	{
 		String command = "SELECT i.*, u.fullname, ";
 		
@@ -124,11 +130,12 @@ public class JDBCIdeaDAO implements IdeaDAO
 		command += "WHERE i.ididea = " + idIdea;
 		
 		Idea idea = null;
-		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
@@ -154,11 +161,15 @@ public class JDBCIdeaDAO implements IdeaDAO
 		} catch(Exception e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return idea;
 	}
 	
-	public List<Idea> searchIdeaByStatus(int status)
+	public List<Idea> searchIdeaByStatus(int status) throws SQLException
 	{
 		String command = "SELECT i.ididea, i.status, i.title, i.description, i.user_identification, i.likes, i.comments, u.fullname FROM ideas i ";
 		command += "INNER JOIN users u ON ";
@@ -169,19 +180,20 @@ public class JDBCIdeaDAO implements IdeaDAO
 			command += "WHERE i.status = " + status;
 		}
 		
-		command += " ORDER BY i.status, i.ididea";
+		command += " ORDER BY i.status, i.ididea DESC";
 		
 		List<Idea> ideaList = new ArrayList<Idea>();
-		Idea idea = null;
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
-				idea = new Idea();
+				Idea idea = new Idea();
 				
 				idea.setId(rs.getInt("i.ididea"));
 				idea.setStatus(rs.getInt("i.status"));
@@ -197,18 +209,24 @@ public class JDBCIdeaDAO implements IdeaDAO
 		} catch(Exception e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return ideaList;
 	}
 	
-	public boolean setScore(int idUser, int score)
+	public boolean setScore(int idUser, int score) throws SQLException
 	{
 		String getScoreByUser = "SELECT current_score, total_score FROM users WHERE iduser = " + idUser;
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(getScoreByUser);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(getScoreByUser);
 			
 			int currentScore = 0;
 			int totalScore = 0;
@@ -219,19 +237,21 @@ public class JDBCIdeaDAO implements IdeaDAO
 			}
 			
 			String setScoreByUser = "UPDATE users SET current_score = ?, total_score = ? WHERE iduser = " + idUser;
+			
 			PreparedStatement p;
-
 			p = this.connection.prepareStatement(setScoreByUser);
 
 			p.setInt(1, currentScore + score);
 			p.setInt(2, totalScore + score);
-
-
 			p.execute();
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
 			return false;
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return true;
 	}

@@ -7,7 +7,7 @@ $(document).ready(function()
         theadTable += "<caption>Minha pontuação</caption>";
         theadTable += "<thead class='thead-dark'>";
         theadTable += "<tr class='d-flex text-center subtitle'>";
-        theadTable += "<th class='col-4'>Nome completo</th><th class='col-3'>Unidade</th><th class='col-2'>Departamento</th><th class='col-1'>PA</th><th class='col-1'>PT</th><th class='col-1'>Ações</th></tr></thead>";
+        theadTable += "<th class='col-4'>Nome completo</th><th class='col-3'>Unidade</th><th class='col-2'>Departamento</th><th class='col-1' class='tooltip' data-toggle='tooltip' data-placement='top' title='Pontos atuais'>PA</th><th class='col-1' class='tooltip' data-toggle='tooltip' data-placement='top' title='Pontos totais'>PT</th><th class='col-1'>Ações</th></tr></thead>";
         theadTable += "</table>";
         theadTable += "</div>";
 
@@ -43,7 +43,7 @@ $(document).ready(function()
 
                         $("#myScoreList").html(html);
 
-                        showMyRewards(userScore.currentScore);
+                        showMyRewards(userScore.id, userScore.currentScore);
                     },
                     error: function(err)
                     {
@@ -61,16 +61,14 @@ $(document).ready(function()
 
     showMyScore();
 
-    showMyRewards = function(currentScoreUser)
+    showMyRewards = function(idUser, currentScoreUser)
     {
-        console.log(currentScoreUser);
-
         let theadTable = "<div class='table-responsive mt-2'>";
         theadTable += "<table class='table table-bordered table-striped mt-2'>";
         theadTable += "<caption>Prêmios</caption>";
         theadTable += "<thead class='thead-dark'>";
         theadTable += "<tr class='d-flex text-center subtitle'>";
-        theadTable += "<th class='col-1'>ID</th><th class='col-3'>Ilustração</th><th class='col-4'>Descrição</th><th class='col-2'>Pontos</th><th class='col-2'>Ações</th></tr></thead>";
+        theadTable += "<th class='col-1'>ID</th><th class='col-3'>Ilustração</th><th class='col-4'>Descrição</th><th class='col-1'>Pontos</th><th class='col-2'>Ações</th><th class='col-1' class='tooltip' data-toggle='tooltip' data-placement='top' title='Quantidade recuperada'>QR</th></tr></thead>";
         theadTable += "</table>";
         theadTable += "</div>";
 
@@ -82,7 +80,7 @@ $(document).ready(function()
         var cfg = 
         {
             type: "GET",
-            url: "../../rest/rewardRest/searchRewards",
+            url: "../../rest/rewardRest/searchRewards/" + idUser,
             success: function(rewardList)
             {
                 for(i = 0; i < rewardList.length; i++)
@@ -109,19 +107,21 @@ $(document).ready(function()
                             "<td class='col-1'>" + rewardList[i].id + "</td>" + 
                             "<td class='col-3'><img src='" + imgPath + "' /></td>" + 
                             "<td class='col-4 text-uppercase'>" + rewardList[i].description + "</td>" + 
-                            "<td class='col-2'>" + rewardList[i].score + "</td>";
+                            "<td class='col-1'>" + rewardList[i].score + "</td>";
 
                     html += "<td class='col-2'>";
 
                     if(currentScoreUser < rewardList[i].score)
                     {
-                        html += "<button type='button' class='btn btn-outline-info disabled' onclick='getReward(" + rewardList[i].id + ")'>Resgatar <i class='fas fa-gift'></i></button>";
+                        html += "<button type='button' class='btn btn-outline-info tooltip-inner disabled' data-toggle='tooltip' data-placement='top' title='Pontos insuficientes para resgatar!'>Resgatar <i class='fas fa-gift'></i></button>";
                     } else
                     {
-                        html += "<button type='button' class='btn btn-info' onclick='getReward(" + rewardList[i].id + ")'>Resgatar <i class='fas fa-gift'></i></button>";
+                        html += "<button type='button' class='btn btn-info' onclick='getReward(" + idUser + ", " + rewardList[i].id + ", " + rewardList[i].score + ")' name='btnGetReward' id='btnGetReward'>" + 
+                                "Resgatar <i class='fas fa-gift'></i></button>";
                     }
 
                     html += "</td>" +  
+                            "<td class='col-1'>" + rewardList[i].quantityReceived + "</td>" + 
                             "</tr></tbody>";
                 }
 
@@ -135,5 +135,74 @@ $(document).ready(function()
             }
         };
         ajax.post(cfg);
+    };
+
+    getReward = function(idUser, idReward, scoreReward)
+    {
+        let btnGetReward = $("#btnGetReward");
+        btnGetReward.click(function()
+        {
+            btnGetReward.html("Aguarde...");
+            btnGetReward.prop("disabled", true);
+        });
+
+        var cfg = 
+        {
+            title: "Tem certeza que deseja retirar o prêmio?",
+            height: "auto",
+            width: 400,
+            modal: true,
+            buttons: 
+            {
+                "Sim": function()
+                {
+                    btnGetReward.prop("disabled", false);
+
+                    var cfg = 
+                    {
+                        type: "GET",
+                        url: "../../rest/rewardRest/getReward/idUser/" + idUser + "/idReward/" + idReward,
+                        success: function(result)
+                        {
+                            var msg = 
+                            {
+                                title: "Retirada de prêmio",
+                                height: "auto",
+                                width: "auto",
+                                modal: true,
+                                buttons: 
+                                {
+                                    "OK": function()
+                                    {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            };
+
+                            $("#msg").html(result);
+                            $("#msg").dialog(msg);
+
+                            showMyScore();
+                        },
+                        error: function(err)
+                        {
+                            alert("Erro ao consultar os prêmios!" + err.responseText);
+                        }
+                    };
+                    ajax.post(cfg);
+                },
+                "Não": function()
+                {
+                    btnGetReward.prop("disabled", false);
+
+                    $(this).dialog("close");
+
+                    showMyScore();
+                }
+            }
+        };
+        
+        $("#msg").dialog(cfg);
+        $(this).dialog("close");
     };
 });

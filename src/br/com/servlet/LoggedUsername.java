@@ -2,6 +2,8 @@ package br.com.servlet;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -24,15 +26,27 @@ public class LoggedUsername extends HttpServlet
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{	
-		process(request, response);
+		try
+		{
+			process(request, response);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{	
-		process(request, response);
+		try
+		{
+			process(request, response);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	private void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException
 	{	
 		HttpSession session = ((HttpServletRequest)request).getSession();
 		

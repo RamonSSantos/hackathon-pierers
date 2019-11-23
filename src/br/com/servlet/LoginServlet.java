@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
+import java.sql.SQLException;
+
 import com.google.gson.Gson;
 
 import br.com.db.connection.ConnectionDB;
@@ -27,15 +29,27 @@ public class LoginServlet extends HttpServlet implements Serializable
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		process(request, response);
+		try
+		{
+			process(request, response);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-		process(request, response);
+		try
+		{
+			process(request, response);
+		} catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
-	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	protected void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException
 	{
 		User user = new User();
 			
@@ -54,7 +68,7 @@ public class LoginServlet extends HttpServlet implements Serializable
 		
 		conec.closeConnection();
 		
-		if(loginValidate == true)
+		if(loginValidate)
 		{
 			HttpSession session = request.getSession();
 			session.setAttribute("email", request.getParameter("email"));

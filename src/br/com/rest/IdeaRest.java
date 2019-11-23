@@ -43,7 +43,7 @@ public class IdeaRest extends UtilRest
 			
 			conec.closeConnection();
 			
-			if(validation == true)
+			if(validation)
 			{
 				return this.buildResponse("Ideia cadastrada com sucesso!");
 			} else

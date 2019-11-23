@@ -9,6 +9,7 @@ public class Reward implements Serializable
 	private int id;
 	private int score;
 	private String description;
+	private int quantityReceived;
 	
 	public int getId() {
 		return id;
@@ -32,5 +33,13 @@ public class Reward implements Serializable
 	
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getQuantityReceived() {
+		return quantityReceived;
+	}
+
+	public void setQuantityReceived(int quantityReceived) {
+		this.quantityReceived = quantityReceived;
 	}
 }

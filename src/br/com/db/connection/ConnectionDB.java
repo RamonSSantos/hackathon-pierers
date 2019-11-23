@@ -15,9 +15,9 @@ public class ConnectionDB
 			
 			connection = java.sql.DriverManager
 						.getConnection(
-						"jdbc:mysql://localhost:3306/piardb",
+						"jdbc:mysql://localhost:3307/piardb",
 						"root",
-						"root");
+						"");
 			
 		} catch(Exception e)
 		{

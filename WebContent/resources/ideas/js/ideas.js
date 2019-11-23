@@ -102,28 +102,26 @@ $(document).ready(function()
 
             for(i = 0; i < ideaList.length; i++)
             {
-                let statusIdea = "";
-                if(ideaList[i].status == 1)
-                {
-                    statusIdea = "Aguardando aprovação";
-                } else if(ideaList[i].status == 2)
-                {
-                    statusIdea = "Aprovada";
-                } else if(ideaList[i].status == 3)
-                {
-                    statusIdea = "Reprovada";
-                } else if(ideaList[i].status == 4)
-                {
-                    statusIdea = "Executada";
-                }
-
                 table += 
                 "<tr class='row mt-4'>" + 
                     "<td class='col-2 p-0'><i class='fas fa-user fa-4x ml-0'></i></td>" + 
                     "<td class='col-6 text-title p-0'>Título: " + ideaList[i].title + 
                         "<i class='fas fa-eye fa-1x cursor-pointer ml-2' onclick='viewIdea(" + ideaList[i].id + ", " + ideaList[i].status + ")'></i>" + 
-                        "<p class='text-small'>" + 
-                            "<strong>Status: " + statusIdea + "</strong>" + 
+                        "<p class='text-small'>";
+                            if(ideaList[i].status == 1)
+                            {
+                                table += "<strong class='text-dark'>Status: Aguardando aprovação</strong>";
+                            } else if(ideaList[i].status == 2)
+                            {
+                                table += "<strong class='text-info'>Status: Aprovada</strong>";
+                            } else if(ideaList[i].status == 3)
+                            {
+                                table += "<strong class='text-danger'>Status: Reprovada</strong>";
+                            } else if(ideaList[i].status == 4)
+                            {
+                                table += "<strong class='text-success'>Status: Executada</strong>";
+                            }
+                table += 
                         "</p>" + 
                         "<td class='col-2 p-0'>" + 
                             "<i class='fas fa-comment text-outline-info cursor-pointer'></i> " + ideaList[i].comments +   
@@ -210,7 +208,7 @@ $(document).ready(function()
         {
             btnAddIdea.html("Aguarde...");
             btnAddIdea.prop("disabled", true);
-        })
+        });
 
         let addIdea = new Object();
 
@@ -234,6 +232,7 @@ $(document).ready(function()
                         btnAddIdea.html("Salvar");
                         btnAddIdea.prop("disabled", false);
 
+                        resetFields();
                         $(this).dialog("close");
                     }
                 }
@@ -281,17 +280,12 @@ $(document).ready(function()
                                         btnAddIdea.prop("disabled", false);
     
                                         $(this).dialog("close");
+                                        resetFields();
                                     }
                                 }
                             };
     
                             $("#addIdea").modal("hide");
-    
-                            $("#titleAddIdea").val("");
-                            $("#descriptionAddIdea").val("");
-                            $("#expectedResultsAddIdea").val("");
-                            $("#companyUnit").val(0);
-                            $("#department").val(0);
     
                             showIdeas(undefined, 0);
     
@@ -377,5 +371,14 @@ $(document).ready(function()
             statusIdea = "Executada";
         }
         $("#statusViewIdea").val(statusIdea);
+    };
+
+    resetFields = function()
+    {
+        $("#titleAddIdea").val("");
+        $("#descriptionAddIdea").val("");
+        $("#expectedResultsAddIdea").val("");
+        $("#companyUnit").val("0");
+        $("#department").val("0");
     };
 });

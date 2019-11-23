@@ -64,7 +64,7 @@ $(document).ready(function()
         theadTable += "<table class='table table-bordered table-striped mt-2'>";
         theadTable += "<thead class='thead-dark'>";
         theadTable += "<tr class='d-flex text-center subtitle'>";
-        theadTable += "<th class='col-4'>Nome completo</th><th class='col-3'>Unidade</th><th class='col-2'>Departamento</th><th class='col-1'>PA</th><th class='col-1'>PT</th><th class='col-1'>Ações</th></tr></thead>";
+        theadTable += "<th class='col-4'>Nome completo</th><th class='col-3'>Unidade</th><th class='col-2'>Departamento</th><th class='col-1' class='tooltip' data-toggle='tooltip' data-placement='top' title='Pontos atuais'>PA</th><th class='col-1' class='tooltip' data-toggle='tooltip' data-placement='top' title='Pontos totais'>PT</th><th class='col-1'>Ações</th></tr></thead>";
         theadTable += "</table>";
         theadTable += "</div>";
 

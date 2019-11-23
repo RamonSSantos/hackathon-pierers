@@ -92,6 +92,125 @@ $(document).ready(function()
         showIdeas(undefined, idStatusIdea);
     });
 
+    openAddIdea = function()
+    {
+        $("#addIdea").modal();
+
+        $("#addIdea").submit(function(e)
+        {
+            //prevent Default functionality
+            e.preventDefault();
+
+            addIdea();
+        });
+    };
+
+    addIdea = function()
+    {
+        let btnAddIdea = $("#btnAddIdea");
+        btnAddIdea.click(function()
+        {
+            btnAddIdea.html("Aguarde...");
+            btnAddIdea.prop("disabled", true);
+        });
+
+        let addIdea = new Object();
+
+        addIdea.title = $("#titleAddIdea").val();
+        addIdea.description = $("#descriptionAddIdea").val();
+        addIdea.expectedResults = $("#expectedResultsAddIdea").val();
+        addIdea.idDepartment = $("#department").val();
+
+        if($("#companyUnit").val() == 0 || $("#department").val() == 0)
+        {
+            var cfg = 
+            {
+                title: "Cadastro de ideia",
+                height: "auto",
+                width: "auto",
+                modal: true,
+                buttons: 
+                {
+                    "OK": function()
+                    {
+                        btnAddIdea.html("Salvar");
+                        btnAddIdea.prop("disabled", false);
+
+                        resetFields();
+                        $(this).dialog("close");
+                    }
+                }
+            };
+
+            $("#addIdea").modal("hide");
+
+            $("#msg").html("Preencha a unidade ou departamento corretamente!");
+            $("#msg").dialog(cfg);
+        } else
+        {
+            if($("#statusAddIdea").is(":checked"))
+            {
+                addIdea.userIdentification = $("#statusAddIdea").val();
+            } else
+            {
+                addIdea.userIdentification = 0;
+            }
+
+            $.ajax(
+            {
+                type: "POST",
+                url: "../../LoggedUsername",
+                success: function(user)
+                {
+                    addIdea.idAuthor = user.id;
+    
+                    var cfg = 
+                    {
+                        url: "../../rest/ideaRest/addIdea",
+                        data: JSON.stringify(addIdea),
+                        success: function(msg)
+                        {
+                            var cfg = 
+                            {
+                                title: "Cadastro de ideia",
+                                height: "auto",
+                                width: "auto",
+                                modal: true,
+                                buttons: 
+                                {
+                                    "OK": function()
+                                    {
+                                        btnAddIdea.html("Salvar");
+                                        btnAddIdea.prop("disabled", false);
+    
+                                        $(this).dialog("close");
+                                        resetFields();
+                                    }
+                                }
+                            };
+    
+                            $("#addIdea").modal("hide");
+    
+                            showIdeas(undefined, 0);
+    
+                            $("#msg").html(msg);
+                            $("#msg").dialog(cfg);
+                        },
+                        error: function(err)
+                        {
+                            alert("Erro ao cadastrar a ideia" + err.responseText);
+                        }
+                    };
+                    ajax.post(cfg);
+                },
+                error: function(err)
+                {
+                    alert("Erro: " + err.responseText);
+                }
+            });
+        }
+    };
+
     showIdeas = function(ideaList, searchStatus)
     {
         let table = "<table class='table table-borderless mb-5'>";
@@ -102,21 +221,6 @@ $(document).ready(function()
 
             for(i = 0; i < ideaList.length; i++)
             {
-                let statusIdea = "";
-                if(ideaList[i].status == 1)
-                {
-                    statusIdea = "Aguardando aprovação";
-                } else if(ideaList[i].status == 2)
-                {
-                    statusIdea = "Aprovada";
-                } else if(ideaList[i].status == 3)
-                {
-                    statusIdea = "Reprovada";
-                } else if(ideaList[i].status == 4)
-                {
-                    statusIdea = "Executada";
-                }
-
                 let nameAuthor = "";
                 if(ideaList[i].userIdentification == 1)
                 {
@@ -131,8 +235,21 @@ $(document).ready(function()
                     "<td class='col-2 p-0'><i class='fas fa-user fa-4x ml-0'></i></td>" + 
                     "<td class='col-6 text-title p-0'>Título: " + ideaList[i].title + 
                         "<i class='fas fa-eye fa-1x cursor-pointer ml-2' onclick='viewIdea(" + ideaList[i].id + ", " + ideaList[i].status + ")'></i>" + 
-                        "<p class='text-small'>" + 
-                            "<strong>Status: " + statusIdea + "</strong>" + 
+                        "<p class='text-small'>";
+                            if(ideaList[i].status == 1)
+                            {
+                                table += "<strong class='text-dark'>Status: Aguardando aprovação</strong>";
+                            } else if(ideaList[i].status == 2)
+                            {
+                                table += "<strong class='text-info'>Status: Aprovada</strong>";
+                            } else if(ideaList[i].status == 3)
+                            {
+                                table += "<strong class='text-danger'>Status: Reprovada</strong>";
+                            } else if(ideaList[i].status == 4)
+                            {
+                                table += "<strong class='text-success'>Status: Executada</strong>";
+                            }
+                table += 
                         "</p>" + 
                         "<td class='col-2 p-0'>" + 
                             "<i class='fas fa-comment text-outline-info cursor-pointer'></i> " + ideaList[i].comments +   

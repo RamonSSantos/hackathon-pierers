@@ -19,7 +19,7 @@ $(document).ready(function()
     logout = function()
     {
         text_toast = "Logout realizado com sucesso!";
-        $("#text-toast-logout").html(text_toast).addClass("text-white");
+        $("#text-toast-logout").html(text_toast).addClass("text-white overlay");
         $("#logout_validation").toast('show').addClass("bg-info");
 
         setTimeout(function(){javascript:Destroy_Session.submit()}, 2000);

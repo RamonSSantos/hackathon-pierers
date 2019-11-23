@@ -3,19 +3,19 @@ package br.com.rest;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.Consumes;
+//import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Response; 
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
+//import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.codehaus.jackson.map.ObjectMapper;
+//import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.db.connection.ConnectionDB;
-import br.com.encryption.Base64Encryption;
-import br.com.encryption.MD5Encryption;
+//import br.com.encryption.Base64Encryption;
+//import br.com.encryption.MD5Encryption;
 import br.com.jdbc.JDBCUserDAO;
 import br.com.objects.User;
 

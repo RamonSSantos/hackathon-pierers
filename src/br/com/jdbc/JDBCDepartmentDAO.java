@@ -19,21 +19,22 @@ public class JDBCDepartmentDAO implements DepartmentDAO
 		this.connection = connection;
 	}
 	
-	public List<Department> showListDepartments(int idCompanyUnit)
+	public List<Department> showListDepartments(int idCompanyUnit) throws SQLException
 	{
 		String command = "SELECT iddepartment, description FROM departments WHERE idcompany_unit = " + idCompanyUnit + " ORDER BY description";
 		
 		ArrayList<Department> listDepartments = new ArrayList<Department>();
-		Department departments = null;
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
-				departments = new Department();
+				Department departments = new Department();
 				
 				departments.setId(rs.getInt("iddepartment"));
 				departments.setDescription(rs.getString("description"));
@@ -43,6 +44,10 @@ public class JDBCDepartmentDAO implements DepartmentDAO
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return listDepartments;
 	}

@@ -19,21 +19,22 @@ public class JDBCCompanyUnitDAO implements CompanyUnitDAO
 		this.connection = connection;
 	}
 	
-	public List<CompanyUnit> showListCompanyUnits()
+	public List<CompanyUnit> showListCompanyUnits() throws SQLException
 	{
 		String command = "SELECT idcompany_unit, trade_name FROM company_units ORDER BY trade_name";
 		
 		ArrayList<CompanyUnit> listCompanyUnits = new ArrayList<CompanyUnit>();
-		CompanyUnit companyUnits = null;
 		
+		Statement stmt = null;
+		ResultSet rs = null;
 		try
 		{
-			Statement stmt = connection.createStatement();
-			ResultSet rs = stmt.executeQuery(command);
+			stmt = connection.createStatement();
+			rs = stmt.executeQuery(command);
 			
 			while(rs.next())
 			{
-				companyUnits = new CompanyUnit();
+				CompanyUnit companyUnits = new CompanyUnit();
 				
 				companyUnits.setId(rs.getInt("idcompany_unit"));
 				companyUnits.setTradeName(rs.getString("trade_name"));
@@ -43,6 +44,10 @@ public class JDBCCompanyUnitDAO implements CompanyUnitDAO
 		} catch(SQLException e)
 		{
 			e.printStackTrace();
+		} finally 
+		{
+			stmt.close();
+			rs.close();
 		}
 		return listCompanyUnits;
 	}

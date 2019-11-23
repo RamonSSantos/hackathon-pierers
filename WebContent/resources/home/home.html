@@ -15,8 +15,11 @@
         <div class="container">
             <div id="include_navbar"></div>
             <div class="row">
-                <div class="col-12">
+                <div class="col-4">
                     <h2 class="title border-title pl-2 mb-0 mt-2">Home</h2>
+                </div>
+                <div class="col-3 offset-5">
+                    <button type="button" class="btn btn-info cursor-pointer" onclick="openAddIdea()">NOVA <i class="fas fa-plus"></i></button>
                 </div>
             </div>
             <div class="row mt-3">
@@ -34,6 +37,66 @@
             <div id="msg" style="display: none"></div>
             <div class="container-fluid px-0">
                 <div id="ideaList"></div>
+            </div>
+            <div id="addIdea" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <a class="close" data-dismiss="modal">*</a>
+                            <h5 class="title">Nova ideia</h5>
+                        </div>
+                        <form id="add_idea" class="form-control-plaintext" role="form">
+                            <div class="modal-body">
+                                <fieldset class="form-group mb-1">
+                                    <legend class="subtitle">Preencha os campos abaixo:</legend>
+                                    <div class="form-row m-2">
+                                        <div class="col-12">
+                                            <label for="titleAddIdea" class="text-label">Título:<span class="text-danger">*</span></label>
+                                            <input type="text" name="titleAddIdea" id="titleAddIdea" class="form-control" placeholder="Descreva o nome da sua ideia" maxlength="45" required autofocus />
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-12">
+                                            <label for="descriptionAddIdea" class="text-label">Descrição:<span class="text-danger">*</span></label>
+                                            <textarea name="descriptionAddIdea" id="descriptionAddIdea" class="form-control" cols="15" rows="3" maxlength="200" placeholder="Descreva com mais detalhes a sua ideia" required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-12">
+                                            <label for="expectedResultsAddIdea" class="text-label">Resultados esperados:</label>
+                                            <textarea name="expectedResultsAddIdea" id="expectedResultsAddIdea" class="form-control" cols="15" rows="2" maxlength="80" placeholder="Quais os objetivos você espera alcançar?"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-6">
+                                            <label for="companyUnit" class="text-label">Unidade:</label>
+                                            <div id="showCompanyUnits" class="form-control-range">
+                                                <!-- get ListCompanyUnits from ideas.js -->
+                                                <input type="hidden" name="id_CompanyUnit" id="id_CompanyUnit" />
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label for="department" class="text-label">Departamento:</label>
+                                            <div id="showDepartments" class="form-control-range">
+                                                <!-- get ListDepartments from ideas.js -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-2">
+                                        <div class="col-12">
+                                            <input type="checkbox" name="statusAddIdea" id="statusAddIdea" class="form-check-input ml-1" value="1" checked />
+                                            <label for="statusAddIdea" class="form-check-label text-label ml-4">Público</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" onclick='resetFields()'>Fechar</button>
+                                <input type="submit" class="btn btn-success" id="btnAddIdea" value="Salvar" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
             <div id="showIdea" class="modal fade" role="dialog">
                 <div class="modal-dialog">

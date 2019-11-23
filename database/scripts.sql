@@ -26,5 +26,5 @@ INSERT INTO rewards VALUES
 (1, 100, "Squeeze"),
 (2, 160, "Vale Compras"),
 (3, 200, "Camiseta"),
-(4, 300, "Jaqueta / Guarda-Sol"),
+(4, 300, "Jaqueta"),
 (5, 600, "Aparelho de Som JBL Flip");
